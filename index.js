@@ -5,7 +5,7 @@ client = new Discord.Client({
 config = require('./config.json'),
 fs = require('fs')
 
-client.login(process.env.TOKEN)
+client.login(config.token)
 client.commands = new Discord.Collection()
 
 fs.readdir('./commands',(err, files)=>{
@@ -26,4 +26,6 @@ client.on('message', message =>{
     const command = client.commands.get(commandName.slice(config.prefix.length))
     if (!command) return
     command.run(message, args, client)
-})
+});
+
+client.login(process.env.TOKEN);
